@@ -6,23 +6,26 @@ public class TankShooter : MonoBehaviour {
     #region Primary Bonboneer
     [SerializeField] private ProjectileData primaryProjectileData;
     [SerializeField] private ProjectileData secondaryProjectileData;
+    [SerializeField] private Animator anim;
 
     public Transform fireTransform; //object from where shot is fired
     private float primaryLastShootTime;
     private float secondaryLastShootTime;
+    
     #endregion
 
     // Update is called once per frame
     void Update() {
-        if (Input.GetMouseButton(0)) {
+        if (Input.GetMouseButtonDown(0)) {
             ShootPrimary();
-        } else if (Input.GetMouseButton(1)) {
+        } else if (Input.GetMouseButtonDown(1)) {
             ShootSecondary();
         }
     }
 
     void ShootPrimary() {
         if (PrimaryReadyToFire()) {
+            anim.SetTrigger("Trig");
             FirePrimaryBullet();
         }
     }
@@ -40,6 +43,7 @@ public class TankShooter : MonoBehaviour {
     void ShootSecondary() {
         if (SecondaryReadyToFire()) {
             FireSecondaryBullet();
+            anim.SetTrigger("Trig");
         }
     }
 
